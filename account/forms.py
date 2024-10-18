@@ -1,28 +1,15 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import Usuario
 
-# Formulario de Registro
-class SignupForm(UserCreationForm):
+# Formulario de registro
+class RegistroForm(UserCreationForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'password1', 'password2', 'profile_picture', 'bio']
-        widgets = {
-            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
-        }
+        fields = ['username', 'email', 'avatar', 'password1', 'password2']  
 
-# Formulario de Inicio de Sesión
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-
-# Formulario de Perfil 
-class ProfileForm(forms.ModelForm):
+# Formulario para editar el perfil
+class EditarPerfilForm(UserChangeForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'profile_picture', 'bio']
-        widgets = {
-            'bio': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'profile_picture': forms.FileInput(attrs={'class': 'form-control'}),
-        }
+        fields = ['username', 'email', 'avatar']  

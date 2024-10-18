@@ -1,55 +1,48 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm, LoginForm, ProfileForm
-from .models import Usuario
+from .forms import RegistroForm, EditarPerfilForm
 
-# Vista de Registro
-def signup(request):
+# Vista para registrar un nuevo usuario
+def registrar(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = RegistroForm(request.POST, request.FILES)
+        if form.is_valid():
+            usuario = form.save()
+            login(request, usuario)  
+            return redirect('perfil')  
+    else:
+        form = RegistroForm()
+    return render(request, 'account/registro.html', {'form': form})
+
+# Vista para iniciar sesión
+def iniciar_sesion(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        usuario = authenticate(request, username=username, password=password)  # Verifica las credenciales
+        if usuario is not None:
+            login(request, usuario)  # Inicia sesión al usuario
+            return redirect('perfil')  # Redirige al perfil
+        else:
+            # Agrega un mensaje de error si las credenciales son incorrectas
+            error_message = "Nombre de usuario o contraseña incorrectos."
+            return render(request, 'account/iniciar_sesion.html', {'error_message': error_message})
+    return render(request, 'account/iniciar_sesion.html')
+
+# Vista para ver el perfil del usuario
+@login_required
+def perfil(request):
+    return render(request, 'account/perfil.html', {'usuario': request.user})
+
+# Vista para editar el perfil del usuario
+@login_required
+def editar_perfil(request):
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password) 
-            login(request, user)  
-            return redirect('profile')  
+            return redirect('perfil') 
     else:
-        form = SignupForm()
-    return render(request, 'accounts/signup.html', {'form': form})
-
-# Vista de Inicio de Sesión
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('profile')  
-            else:
-                return render(request, 'accounts/login.html', {'form': form, 'error': 'Credenciales inválidas'})
-    else:
-        form = LoginForm()
-    return render(request, 'accounts/login.html', {'form': form})
-
-# Vista de Cerrar Sesión
-def user_logout(request):
-    logout(request)
-    return redirect('login')
-
-# Vista del Perfil
-@login_required
-def profile(request):
-    usuario = request.user
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=usuario)
-        if form.is_valid():
-            form.save() 
-            return redirect('profile')
-    else:
-        form = ProfileForm(instance=usuario)
-    return render(request, 'accounts/profile.html', {'form': form})
+        form = EditarPerfilForm(instance=request.user)
+    return render(request, 'account/editar_perfil.html', {'form': form})
