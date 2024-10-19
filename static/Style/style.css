@@ -1,0 +1,83 @@
+main {
+    padding-inline: 5rem;
+    background-color: rgba(0, 136, 255, 0.793);
+    height: 85vh;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+
+    :hover {
+        text-decoration: underline;
+        color: #181F1C;
+    }
+}
+
+
+.nav div .links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Inicio lista productos */
+.productos {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.8rem;
+    gap: 1.2rem;
+}
+
+.productos .titulo {
+    display: flex;
+    justify-content: space-between;
+}
+
+.productos .lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.productos .tarjeta {
+    background-color: white;
+    list-style: none;
+    padding: 0.8rem;
+    border-radius: 2%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productos .info {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.productos .info img {
+    min-width: 60%;
+}
+
+.tarjeta .botones {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: end;
+    font-size: 0.5rem;
+}
+
+.tarjeta .botones .btn {
+    padding: 0.3rem;
+    font-size: 0.8rem;
+}
+
+/* Inicio agregar productos */
+
+div.nuevo {
+    display: flex;
+    justify-content: center;
+    background-color: red;
+}

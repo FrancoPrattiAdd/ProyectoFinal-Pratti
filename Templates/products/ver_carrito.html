@@ -11,11 +11,10 @@
         <li>
             <strong>Producto:</strong> {{ item.producto.nombre }}<br>
             <strong>Cantidad:</strong> {{ item.cantidad }}<br>
-            <strong>Precio Unitario:</strong> ${{ item.producto.precio }}<br>
-            <strong>Total:</strong> ${{ item.cantidad|add:item.producto.precio }}<br>
+            <strong>Precio por unidad:</strong> ${{ item.producto.precio }}<br>
             <form action="{% url 'eliminar_del_carrito' item.producto.id %}" method="POST" style="display:inline;">
                 {% csrf_token %}
-                <button type="submit">Eliminar</button>
+                <button type="submit">Eliminar producto</button>
             </form>
         </li>
         {% endfor %}
