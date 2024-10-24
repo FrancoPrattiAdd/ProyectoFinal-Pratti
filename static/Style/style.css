@@ -1,7 +1,8 @@
 main {
     padding-inline: 5rem;
-    background-color: rgba(0, 136, 255, 0.793);
+    background-color: rgb(64, 118, 159);
     height: 85vh;
+    padding-top: 1rem;
 
 }
 
@@ -74,10 +75,107 @@ a {
     font-size: 0.8rem;
 }
 
-/* Inicio agregar productos */
+/* Inicio detalle productos */
 
-div.nuevo {
+.detalle {
+    background-color: white;
+    margin-inline: 8rem;
     display: flex;
-    justify-content: center;
-    background-color: red;
+    flex-direction: column;
+    padding: .8rem;
+    border-radius: 1%;
+}
+.detalle .producto {
+    display: flex;
+}
+.detalle .botones {
+    display: flex;
+    gap: 1rem;
+    justify-content: end;
+}
+
+/*Inicio editar producto*/
+
+.editar-prod {
+    max-width: 30rem;
+    background-color: white;
+    padding: .8rem;
+}
+
+/* Inicio agregar producto */
+
+.nuevo {
+    background-color: white;
+    max-width: 30rem;
+    padding: .8rem;
+}
+
+/*Inicio carrito*/
+
+.carrito {
+    background-color: white;
+    padding: .8rem;
+    max-width: 30rem;
+    justify-content: start;
+}
+
+.carrito ul {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin-left: -2rem;
+}
+
+.carrito .item {
+    display: flex;
+    gap: .8rem;
+    background-color: rgba(215, 209, 209, 0.474);
+    max-width: 30rem;
+    padding: .8rem;
+}
+
+.carrito .item .info {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+/* Inicio login */
+
+.login {
+    background-color: white;
+    max-width: 30rem;
+    padding: .8rem;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.perfil {
+    background-color: white;
+    max-width: 50rem;
+    padding: .8rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.perfil .head {
+    display: flex;
+    flex-direction: column;
+}
+
+/*Inicio editar perfil*/
+
+.editar-perfil {
+    background-color: white;
+    max-width: 50rem;
+    padding: .8rem;
+}
+
+/*inicio registro*/
+
+.registro {
+    background-color: white;
+    max-width: 50rem;
+    padding: .8rem;
 }

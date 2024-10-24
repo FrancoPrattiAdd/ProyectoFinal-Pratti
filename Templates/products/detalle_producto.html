@@ -1,27 +1,35 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block titulo %}
 Detalles del Producto
 {% endblock %}
 
 {% block content %}
-<h2>{{ producto.nombre }}</h2>
+<div class="detalle">
+    <div class="producto">
+        <div>
+            <h2>{{ producto.nombre }}</h2>
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="max-width: 300px;">
+            {% endif %}
+        
+        </div>
+        <div>
+            <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+        </div>
+    </div>
+    <div class="botones"> 
+        <a href="{% url 'listar_productos' %}">
+            <button class="btn btn-info">Volver a la Lista de Productos</button>
+        </a>
+        <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+        </form>
 
-<div>
-    {% if producto.imagen %}
-        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" style="max-width: 300px;">
-    {% endif %}
-
-    <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
-    <p><strong>Precio:</strong> ${{ producto.precio }}</p>
-    
-    <form action="{% url 'agregar_al_carrito' producto.id %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Agregar al Carrito</button>
-    </form>
-    <a href="{% url 'listar_productos' %}">
-        <button>Volver a la Lista de Productos</button>
-    </a>
+    </div>
 </div>
+
 
 {% endblock %}

@@ -5,10 +5,13 @@ Editar Producto
 {% endblock %}
 
 {% block content %}
-<h2>Editar Producto</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}  <!-- Renderiza el formulario -->
-    <button type="submit">Actualizar Producto</button>
-</form>
+<div class="editar-prod">
+    <h2>Editar Producto</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renderiza el formulario -->
+        <button type="submit" class="btn btn-success">Actualizar Producto</button>
+    </form>
+</div>
+
 {% endblock %}
